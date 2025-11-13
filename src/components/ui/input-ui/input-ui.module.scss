@@ -1,0 +1,39 @@
+.container {
+  box-sizing: border-box;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+
+  column-gap: 10px;
+
+  .label {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .input {
+    box-sizing: border-box;
+
+    padding: 4px 6px;
+    height: 28px;
+
+    width: 100%;
+
+    border-radius: 6px;
+    border: 1px solid gray;
+  }
+
+  &.disabled {
+    pointer-events: none;
+
+    .label, .input {
+      opacity: .5;
+    }
+  }
+
+  &.fullWidth {
+    width: 100%;
+  }
+}

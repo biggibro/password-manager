@@ -1,0 +1,17 @@
+.container {
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  column-gap: 10px;
+
+  .actions {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    column-gap: 10px;
+  }
+}

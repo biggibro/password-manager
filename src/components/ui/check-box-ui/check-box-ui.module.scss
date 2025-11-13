@@ -1,0 +1,30 @@
+.container {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 6px;
+
+  box-sizing: border-box;
+
+  .input {
+    cursor: pointer;
+
+    padding: 0;
+    margin: 0;
+  }
+
+  .label {
+    font-size: 14px;
+  }
+
+  &.disabled {
+    pointer-events: none;
+
+    .label {
+      opacity: .5;
+    }
+  }
+}

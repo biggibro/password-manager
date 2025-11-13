@@ -1,0 +1,16 @@
+.container {
+  cursor: pointer;
+  height: 28px;
+  box-sizing: border-box;
+
+  border-radius: 6px;
+  border: 1px solid gray;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  &.disabled {
+    cursor: default;
+  }
+}

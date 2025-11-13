@@ -1,27 +1,21 @@
 import { type FC, useState } from "react";
 
-import { ServiceDeleteModal } from "../../../../../../features/layout/modals/service-delete-modal/service-delete-modal.tsx";
-import { ServiceEditModal } from "../../../../../../features/layout/modals/service-edit-modal/service-edit-modal.tsx";
+import { useModalsWrapperStore } from "../../../../../../../store/use-modals-wrapper-store.store.ts";
 import type { ServiceDTO } from "../../../../../../../api/types/services.types.ts";
-import { Separator } from "../../../../../../features/separator/separator.tsx";
 import { ButtonUI } from "../../../../../../ui/button-ui/button-ui.tsx";
-import { ServicesApi } from "../../../../../../../api/services.api.ts";
 
 import s from "./service-list-item.module.scss";
 
 interface Props {
   service: ServiceDTO;
 
-  setServices: (services: ServiceDTO[]) => void;
-
   index: number;
 }
 
 export const ServiceListItem: FC<Props> = (props) => {
-  const { service, setServices, index } = props;
+  const { service, index } = props;
 
-  const [openEditModal, setOpenEditModal] = useState(false);
-  const [openDeleteModal, setOpenDeleteModal] = useState(false);
+  const { setModalId, setService } = useModalsWrapperStore();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -36,27 +30,13 @@ export const ServiceListItem: FC<Props> = (props) => {
   };
 
   const onOpenEditModal = () => {
-    setOpenEditModal(true);
-  };
-
-  const onCloseEditModal = async () => {
-    const nextService = await ServicesApi.fetchServices();
-
-    setServices(nextService);
-
-    setOpenEditModal(false);
+    setModalId("edit-service-id");
+    setService(service);
   };
 
   const onOpenDeleteModal = () => {
-    setOpenDeleteModal(true);
-  };
-
-  const onCloseDeleteModal = async () => {
-    const nextService = await ServicesApi.fetchServices();
-
-    setServices(nextService);
-
-    setOpenDeleteModal(false);
+    setModalId("delete-service-id");
+    setService(service);
   };
 
   return (
@@ -79,16 +59,6 @@ export const ServiceListItem: FC<Props> = (props) => {
           <ButtonUI title="Удалить" onCLick={onOpenDeleteModal} />
         </div>
       </div>
-
-      <Separator light />
-
-      {openEditModal && (
-        <ServiceEditModal onClose={onCloseEditModal} service={service} />
-      )}
-
-      {openDeleteModal && (
-        <ServiceDeleteModal onClose={onCloseDeleteModal} service={service} />
-      )}
     </>
   );
 };

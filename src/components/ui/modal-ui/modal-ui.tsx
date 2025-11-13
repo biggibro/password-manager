@@ -8,8 +8,6 @@ interface Props {
   title: string;
   content?: ReactNode;
 
-  open: boolean;
-
   titleSubmit: string;
   onSubmit: () => void;
   disabledSubmit?: boolean;
@@ -22,8 +20,6 @@ interface Props {
 
 export const ModalUI: FC<Props> = (props) => {
   const {
-    open,
-
     onClose,
     onSubmit,
     disabledSubmit,
@@ -36,10 +32,6 @@ export const ModalUI: FC<Props> = (props) => {
 
     error,
   } = props;
-
-  if (!open) {
-    return null;
-  }
 
   return (
     <div className={s.container}>

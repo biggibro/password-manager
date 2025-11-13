@@ -1,26 +1,25 @@
 import { type FC, useState } from "react";
 
-import type { ServiceDTO } from "../../../../../api/types/services.types.ts";
-import { ServicesApi } from "../../../../../api/services.api.ts";
+import { useModalsWrapperStore } from "../../../../../store/use-modals-wrapper-store.store.ts";
+import { useServicesStore } from "../../../../../store/use-services-store.store.ts";
 import { ModalUI } from "../../../../ui/modal-ui/modal-ui.tsx";
 
-interface Props {
-  onClose: () => void;
-
-  service: ServiceDTO;
-}
-
-export const ServiceDeleteModal: FC<Props> = (props) => {
-  const { onClose, service } = props;
-
-  const [loading, setLoading] = useState(false);
+export const ServiceDeleteModal: FC = () => {
+  const { setModalId, service } = useModalsWrapperStore();
+  const { deleteService, loading } = useServicesStore();
 
   const [error, setError] = useState("");
 
+  const onClose = () => {
+    setModalId("");
+  };
+
   const onSubmit = async () => {
-    setLoading(true);
-    const response = await ServicesApi.deleteService(service.id);
-    setLoading(false);
+    if (!service) {
+      return;
+    }
+
+    const response = await deleteService(service.id);
 
     if (response !== "error") {
       onClose();
@@ -33,8 +32,7 @@ export const ServiceDeleteModal: FC<Props> = (props) => {
 
   return (
     <ModalUI
-      title={`Удалить "${service.name}" ?`}
-      open
+      title={`Удалить "${service?.name}" ?`}
       titleSubmit="Удалить"
       onSubmit={onSubmit}
       titleClose="Отмена"

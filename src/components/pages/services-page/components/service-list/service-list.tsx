@@ -8,13 +8,11 @@ import s from "./service-list.module.scss";
 interface Props {
   services: ServiceDTO[];
 
-  setServices: (services: ServiceDTO[]) => void;
-
   loading?: boolean;
 }
 
 export const ServiceList: FC<Props> = (props) => {
-  const { services, setServices, loading } = props;
+  const { services, loading } = props;
 
   const empty = !services.length && !loading;
   const notEmpty = !loading && !!services.length;
@@ -27,12 +25,7 @@ export const ServiceList: FC<Props> = (props) => {
 
       {notEmpty &&
         services.map((service, index) => (
-          <ServiceListItem
-            service={service}
-            setServices={setServices}
-            index={index + 1}
-            key={index}
-          />
+          <ServiceListItem service={service} index={index + 1} key={index} />
         ))}
     </div>
   );
